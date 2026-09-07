@@ -1,6 +1,6 @@
-const APP_CACHE = 'learn-flood-app-v4';
+const APP_CACHE = 'learn-flood-app-v4-2';
 const AUDIO_CACHE = 'learn-flood-audio-v3';
-const IMAGE_CACHE = 'learn-flood-images-v4';
+const IMAGE_CACHE = 'learn-flood-images-v4-1';
 const APP_FILES = ['./', './index.html', './style.css', './app.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', event => {
@@ -20,22 +20,6 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
-
-  if (event.request.destination === 'image' && url.hostname.includes('googleusercontent.com')) {
-    event.respondWith((async () => {
-      const cache = await caches.open(IMAGE_CACHE);
-      const cached = await cache.match(event.request.url);
-      if (cached) return cached;
-      try {
-        const response = await fetch(event.request);
-        if (response) await cache.put(event.request.url, response.clone());
-        return response;
-      } catch {
-        return new Response('', { status: 503, statusText: 'Image unavailable offline' });
-      }
-    })());
-    return;
-  }
 
   if (url.origin !== self.location.origin) return;
 
