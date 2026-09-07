@@ -202,11 +202,19 @@ const tracks = [
       "Afterwards, click on #7- \"The Ark\"- to see a comparison chart of the sizing of the ark",
     ],
     images: ["images/section2/2.6.True-Knowledge-Abundant.png"]
+  },
+  {
+    section: 2, number: "2.7", title: "The Ark", file: null, duration: null,
+    sourceUrl: "https://sites.google.com/view/learn-from-the-flood/section-2-post-flood/7-details-of-the-ark",
+    commentary: [
+      "The following images are references to show the the square footage by comparison and do not reflect in detail the actual ark design."
+    ],
+    images: ["images/section2/2.7.Ark-Size.png"]
   }
 ];
 
 const AUDIO_CACHE = 'learn-flood-audio-v3';
-const IMAGE_CACHE = 'learn-flood-images-v4-1';
+const IMAGE_CACHE = 'learn-flood-images-v5-1';
 const audio = document.getElementById('audioPlayer');
 const titleEl = document.getElementById('nowPlayingTitle');
 const sectionEl = document.getElementById('nowPlayingSection');
@@ -237,13 +245,22 @@ function renderTracks() {
       const card = document.createElement('article');
       card.className = 'track-card';
       card.dataset.index = index;
-      card.innerHTML = `<div class="track-number">${track.number}</div><div class="track-info"><p class="track-title">${track.title}</p><p class="track-duration">${fmt(track.duration)}</p></div><button class="track-play" type="button" aria-label="Play ${track.title}" data-index="${index}">▶</button>`;
+      const action = track.file
+        ? `<button class="track-play" type="button" aria-label="Play ${track.title}" data-index="${index}">▶</button>`
+        : `<button class="track-play commentary-only" type="button" aria-label="View ${track.title}" data-index="${index}">View</button>`;
+      const duration = track.file ? `<p class="track-duration">${fmt(track.duration)}</p>` : `<p class="track-duration">Commentary only</p>`;
+      card.innerHTML = `<div class="track-number">${track.number}</div><div class="track-info"><p class="track-title">${track.title}</p>${duration}</div>${action}`;
       host.appendChild(card);
     });
   }
   document.querySelectorAll('.track-play').forEach(btn => {
     btn.addEventListener('click', async () => {
       const idx = Number(btn.dataset.index);
+      const selected = tracks[idx];
+      if (!selected.file) {
+        await loadTrack(idx, { scrollToContent: true });
+        return;
+      }
       if (idx === currentIndex && !audio.paused) audio.pause();
       else {
         if (idx !== currentIndex) await loadTrack(idx, { scrollToContent: true });
@@ -266,6 +283,21 @@ async function loadTrack(index, { scrollToContent = false } = {}) {
   currentIndex = Math.max(0, Math.min(index, tracks.length - 1));
   const track = tracks[currentIndex];
   if (activeBlobUrl) { URL.revokeObjectURL(activeBlobUrl); activeBlobUrl = null; }
+  if (!track.file) {
+    audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+    titleEl.textContent = track.title;
+    sectionEl.textContent = `Section ${track.section} · Commentary only`;
+    renderContent(track);
+    updateActiveCard();
+    if (scrollToContent) {
+      requestAnimationFrame(() => {
+        contentPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+    return;
+  }
   const networkUrl = new URL(track.file, document.baseURI).href;
   let playbackUrl = networkUrl;
   try {
@@ -296,7 +328,8 @@ function updateActiveCard() {
   document.querySelectorAll('.track-card').forEach(card => card.classList.toggle('active', Number(card.dataset.index) === currentIndex));
   document.querySelectorAll('.track-play').forEach(btn => {
     const active = Number(btn.dataset.index) === currentIndex;
-    btn.textContent = active && !audio.paused ? '❚❚' : '▶';
+    const track = tracks[Number(btn.dataset.index)];
+    btn.textContent = track.file ? (active && !audio.paused ? '❚❚' : '▶') : 'View';
   });
 }
 function updatePlayButton() { updateActiveCard(); }
@@ -305,7 +338,13 @@ nextBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused
 audio.addEventListener('error', () => { const err = audio.error; offlineStatus.textContent = `Audio could not load (error ${err ? err.code : 'unknown'}).`; });
 audio.addEventListener('play', updatePlayButton);
 audio.addEventListener('pause', updatePlayButton);
-audio.addEventListener('ended', async () => { if (currentIndex < tracks.length - 1) { await loadTrack(currentIndex + 1, { scrollToContent: true }); audio.play().catch(() => {}); } });
+audio.addEventListener('ended', async () => {
+  if (currentIndex < tracks.length - 1) {
+    const nextIndex = currentIndex + 1;
+    await loadTrack(nextIndex, { scrollToContent: true });
+    if (tracks[nextIndex].file) audio.play().catch(() => {});
+  }
+});
 
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) { offlineStatus.textContent = 'Offline mode is not supported in this browser'; downloadBtn.disabled = true; return; }
@@ -316,17 +355,18 @@ async function registerServiceWorker() {
 async function checkOfflineStatus() {
   if (!('caches' in window)) return;
   const audioCache = await caches.open(AUDIO_CACHE);
+  const audioTracks = tracks.filter(track => track.file);
   let foundAudio = 0;
-  for (const track of tracks) if (await audioCache.match(new URL(track.file, document.baseURI).href)) foundAudio++;
+  for (const track of audioTracks) if (await audioCache.match(new URL(track.file, document.baseURI).href)) foundAudio++;
   const allImages = tracks.flatMap(t => t.images || []).map(url => new URL(url, document.baseURI).href);
   const imageCache = await caches.open(IMAGE_CACHE);
   let foundImages = 0;
   for (const url of allImages) if (await imageCache.match(url)) foundImages++;
-  if (foundAudio === tracks.length && foundImages === allImages.length) {
+  if (foundAudio === audioTracks.length && foundImages === allImages.length) {
     offlineStatus.textContent = 'Full tour audio + images are ready offline';
     downloadBtn.textContent = 'Downloaded ✓';
   } else if (foundAudio > 0 || foundImages > 0) {
-    offlineStatus.textContent = `${foundAudio}/${tracks.length} audio tracks and ${foundImages}/${allImages.length} images saved`;
+    offlineStatus.textContent = `${foundAudio}/${audioTracks.length} audio tracks and ${foundImages}/${allImages.length} images saved`;
   }
 }
 
@@ -336,13 +376,14 @@ downloadBtn.addEventListener('click', async () => {
   progressWrap.classList.remove('hidden');
   progressWrap.setAttribute('aria-hidden', 'false');
   const allImages = tracks.flatMap(t => t.images || []).map(url => new URL(url, document.baseURI).href);
-  const total = tracks.length + allImages.length;
+  const audioTracks = tracks.filter(track => track.file);
+  const total = audioTracks.length + allImages.length;
   progressBar.max = total;
   progressBar.value = 0;
   let done = 0;
   try {
     const audioCache = await caches.open(AUDIO_CACHE);
-    for (const track of tracks) {
+    for (const track of audioTracks) {
       const url = new URL(track.file, document.baseURI).href;
       if (!(await audioCache.match(url))) {
         const response = await fetch(url, { cache: 'no-store' });
