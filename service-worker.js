@@ -1,4 +1,4 @@
-const APP_CACHE = 'learn-flood-app-v5-1';
+const APP_CACHE = 'learn-flood-app-v5-2';
 const AUDIO_CACHE = 'learn-flood-audio-v3';
 const IMAGE_CACHE = 'learn-flood-images-v5-1';
 
@@ -29,7 +29,8 @@ const IMAGE_FILES = [
   './images/section2/2.3.Farming.png',
   './images/section2/2.4.TribalVillage.png',
   './images/section2/2.5.Old-World-To-New-World.png',
-  './images/section2/2.6.True-Knowledge-Abundant.png'
+  './images/section2/2.6.True-Knowledge-Abundant.png',
+  './images/section2/2.7.Ark-Size.png'
 ];
 
 self.addEventListener('install', event => {
@@ -66,7 +67,7 @@ self.addEventListener('fetch', event => {
 
   if (url.origin !== self.location.origin) return;
 
-  // Preserve the working offline audio system.
+  // IMPORTANT: Preserve the proven V4.3/V5.0 audio behavior unchanged.
   if (url.pathname.toLowerCase().endsWith('.mp3')) {
     event.respondWith((async () => {
       const cache = await caches.open(AUDIO_CACHE);
@@ -89,7 +90,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Store images separately for reliable offline use.
+  // Keep images in their own offline image cache.
   if (url.pathname.includes('/images/')) {
     event.respondWith((async () => {
       const imageCache = await caches.open(IMAGE_CACHE);
