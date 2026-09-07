@@ -3,72 +3,118 @@ const tracks = [
     section: 1, number: '1.1', title: 'Welcome', file: 'audio/1.1.Welcome.mp3', duration: 57.81,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/1-welcome',
     commentary: [
-      'Welcome to the Mashantucket Pequot Museum and Research Center. This large tribally owned educational complex uses immersive exhibits, life-size village recreations, and other displays to introduce visitors to Native history and culture.',
-      'While touring, follow all posted signs. Do not touch artwork or exhibits unless a display specifically allows it, avoid flash photography, and keep food and drinks to designated areas.',
-      'The original tour page also reminds visitors to check current museum hours before visiting so there is enough time to enjoy the exhibits.'
+      'Welcome to the world’s largest Native American museum. Opened in August 1998, this 308,000-square-foot tribally owned educational complex features multi-sensory dioramas, life-size tribal village recreations, and an 18-story stone-and-glass observation tower.',
+      'Please observe the following reminders and observe all posted signage while touring:',
+      'Do not touch artwork or exhibits unless otherwise posted.',
+      'Flash photography is prohibited.',
+      'Food and beverages are permitted only in designated areas.',
+      'Note that the museum is open typically Wednesday through Saturday from 9:00 AM to 5:00 PM. Please plan accordingly so you can enjoy your visit to the fullest extent possible!'
     ],
-    images: ['https://lh3.googleusercontent.com/sitesv/AG8ngQWVKLggvc_KoAHmMNemn2XslWIdnTydrYFppWyobfEbP05Llxu6pp-IhUxLSQCfKXIxOtoQ6bZL_sZwYSH0jXV_WdH_53HkHVi3tPDopSRj8YmuiCj1ihEgqCmfVGMjGetc0X0ePvBr1Z7XNJ-MEueKr4Zh819LjOuQLJhq9_aC8Oy00geI6m-SlwMVPAqbVCo-KUTVmGhoHFltQgDF7Q0o2cdPjhzXI0_zz9yD%3Dw1280']
+    images: ['images/section1/1.1.B_Welcome.jpg', 'images/section1/1.1.Welcome.png']
   },
   {
     section: 1, number: '1.2', title: 'Introduction', file: 'audio/1.2.Introduction.mp3', duration: 133.22,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/2-introduction',
     commentary: [
-      'The tour theme is “Learn from the Flood and go to the Mountain of Jehovah.” Its purpose is to build confidence in the Bible’s Flood account and strengthen faith in the Creator’s promise of peaceful, righteous worship.',
-      'The page directs visitors to Isaiah 2:2–4 and Isaiah 54:9, emphasizing four ideas: God has a name; he teaches people his ways; he sets standards for worship; and his purpose is for people of every nation to live in peace rather than learn war.',
-      'The stop then connects those promises with the Flood account and asks visitors to continue into the museum’s modern history exhibit for the Mashantucket Pequot Tribal Nation.'
-    ], images: []
+      'The theme of this tour is:',
+      'Learn from the Flood and go to the Mountain of Jehovah!',
+      'Purpose: To build confidence in the historical record of the flood and to strengthen our faith in the creator’s promise of pure worship in a righteous new world.',
+      'Please read Isaiah chapter 2 verses 2 & 3:',
+      '“And many peoples will go and say: ‘Come, let us go up to the mountain of Jehovah... He will instruct us about his ways, And we will walk in his paths.’ ...He will render judgment among the nations... They will beat their swords into plowshares and their spears into pruning shears. Nation will not lift up sword against nation, Nor will they learn war anymore.”',
+      'These words were written centuries after one of the greatest events in human history, the flood of Noah\'s day. Isaiah was inspired to write specifically about that event as recorded at Chapter 54 verse 9- “This is like the days of Noah to me. Just as I have sworn that the waters of Noah will no more cover the earth."',
+      'These verses have significant meaning for us.',
+      'What do they teach us about the most high God Jehovah, the almighty creator of the heavens and earth?',
+      '1st-God has a name.',
+      '2nd-He teaches others about his ways inviting them to go to his mountain.',
+      '3rd-Jehovah sets the standards for true worship and judges accordingly.',
+      '4th-God wants all people regardless of race, or nationality—to be united in peace and not to learn war anymore.',
+      'The account of the Flood will help build confidence that just as Jehovah acted then, he will do it again in the very near future in order to fulfill his purpose of a peaceful righteous new world.',
+      'Please proceed to the first exhibit down below. As you do so, enter first into the modern day history of the Mashantucket Tribe.'
+    ],
+    images: ['images/section1/1.2.Introduction.png']
   },
   {
     section: 1, number: '1.3', title: 'Modern Tribe History', file: 'audio/1.3.ModernTribe.mp3', duration: 43.73,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/3-modern-tribe-history',
     commentary: [
-      'As you walk through this section, observe the Mashantucket Tribal Nation’s modern history, government, accomplishments, and photographs of tribal members participating in cultural activities.',
-      'The tour invites visitors to take time with the exhibit, then reflects on whether people from many nations and tribes can be united. Before entering the glacier and Ice Age area, continue to Stop 4, “Turbulent Times.”'
-    ], images: []
+      'As you walk thru this section, you will observe the Mashantucket Tribal nation modern history, their government, and other accomplishments. Photos on the exterior walls depict tribal members engaging in cultural activities. Feel free to take your time learning about the history while exploring.',
+      'Interestingly, some tribal members do enjoy studying the Bible and they now teach others about the creator\'s purpose for a peaceful new world.',
+      'Has the creator been uniting people from all nations and tribes? When you\'re finished touring the exhibit, before entering the glacier ice age section of the museum, we would like you to click on the next tour #4. Turbulent Times.'
+    ],
+    images: ['images/section1/1.3.TribeHistory.png']
   },
   {
     section: 1, number: '1.4', title: 'Turbulent Times', file: 'audio/1.4.Turbulent-Times.mp3', duration: 448.34,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/4-turbulent-times',
     commentary: [
-      'This stop moves back to the period before the Flood and directs attention to Genesis chapters 6 and 7. The page describes a world marked by violence and wickedness and discusses the Bible account of rebellious spirit sons of God, the Nephilim, and Noah finding favor with Jehovah.',
-      'The commentary asks what life was like before the Flood and why conditions became worse, then contrasts that violence with God’s purpose for peaceful worship.',
-      'It concludes by focusing on the means described in Genesis 7: heavy rain, the “springs of the vast watery deep,” and the opening of the floodgates of the heavens. Visitors are directed toward the globe and flowing-water area before continuing to Stop 5.'
+      'Let\'s go back into time around 2370 B.C.E, what happened?',
+      'We are going to read the Bible\'s account that describes the earth before the global flood. Genesis chapter 6 verses 1 through 8: "Now when men started to grow in number on the surface of the ground and daughters were born to them, the sons of the true God began to notice that the daughters of men were beautiful. So they began taking as wives all whom they chose. Then Jehovah said: “My spirit will not tolerate man indefinitely, because he is only flesh.',
+      'Accordingly, his days will amount to 120 years.” The Nephʹi·lim were on the earth in those days and afterward. During that time the sons of the true God continued to have relations with the daughters of men, and these bore sons to them. They were the mighty ones of old times, the men of fame.',
+      'Consequently, Jehovah saw that man’s wickedness was great on the earth and that every inclination of the thoughts of his heart was only bad all the time.  Jehovah regretted that he had made men on the earth, and his heart was saddened. So Jehovah said: “I am going to wipe men whom I have created off the surface of the ground, man together with domestic animals, creeping animals, and flying creatures of the heavens, for I regret that I have made them.” But Noah found favor in the eyes of Jehovah.',
+      'What was life like before the flood on earth? Was God\'s purpose of a peaceful earth being fulfilled? No. Violence and wickedness prevailed. Why did things get worse? Rebellious angelic sons of God came down to the earth and took the form of men to start having their own families with women on the earth. This was in direct violation of God\'s purpose for them. What resulted? Men of fame were born, giant bullies who caused further wickedness and violence.',
+      'Clearly, this was a turbulent time for mankind and for pure worship. (Genesis 6:11) Only one man named Noah, along with his family had found favor in the eyes of Jehovah.',
+      'In what specific way would God bring an end to the wickedness of that era?',
+      'Please see Genesis chapter 7 verse 4 and 11: "....I will make it rain on the earth for 40 days and 40 nights.....on that day all the springs of the vast watery deep burst open and the floodgates of the heavens were opened..."  Please proceed to the area where you see the globe that is in the center of the exhibit room pass the ice and flowing water.',
+      'Please go to the page #5 entitled: "Ice age or something else?" for an indepth examination of the flood account.'
     ],
-    images: ['https://lh3.googleusercontent.com/sitesv/AG8ngQXfm0ikFuAiHi3deA0RrhsCp_DuH5_gzR_dqgbtWfWq8bJ30js9s4PiskDy0liEsg4Pmbk3PEzD5JDyoXcua-_J6zWcvMElOPVV9jZP4sQhy92xs3HfZ7OmpsPiZh4OdHXlo6pMEATBHQ5-K4x8xTl3QatbGoDWpv5N8lVu81OCeFI1pWYgZJncj-b_EesAPtdD-f8QLqAsgGEToQ199kWAJXO2ioYg-zX1byQunq4%3Dw1280']
+    images: ['images/section1/1.4.TurbulentTimes.png']
   },
   {
-    section: 1, number: '1.5', title: 'Ice Age or Something Else?', file: 'audio/1.5.Ice-Age.mp3', duration: 172.38,
+    section: 1, number: '1.5', title: 'Ice Age or something else?', file: 'audio/1.5.Ice-Age.mp3', duration: 172.38,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/5-ice-age-or-something-else',
     commentary: [
-      'This stop asks visitors to consider the destructive power of moving water and whether large-scale geological features can be interpreted in light of a catastrophic Flood rather than only an Ice Age model.',
-      'The page discusses very large transported boulders found far from their apparent source areas, including examples in northern Europe and North America. It presents the tour’s view that the biblical Flood involved forces capable of reshaping landscapes on a vast scale.',
-      'Visitors are invited to weigh the evidence for themselves and then proceed to the museum’s creation-story artwork for Stop 6, “Stories & Legends Passed On.”'
+      'How powerful is water? Storm surges can wipe away communities in an instant. T he tragedy in Nepal and China displayed for us the incredible force of moving water and other debris causing massive destruction in the mountainous region of the Himalayas.',
+      'An Article entitled: "The Power of Water," stated: "Floods show the enormous power of water. In Utah, floods moved boulders weighing 75 to 210 tons nearly 1,000 feet." The flood described in the bible was no rainstorm. It involved the collapse of a water canopy in the upper atmosphere. The weight of this water caused tectonic shifts, buckling the earth\'s crust and creating immense tsunamis all over the planet reshaping the planet.',
+      'Is there geological evidence that proves this? Or was it simply due to an "Ice Age" as the planet evolved?',
+      'A book entitled: “The Flood” has these comments:',
+      '“Large masses of granite and hard metamorphic rock, for example, which can be traced to Scandinavia, are scattered over the plains of Denmark and northern Germany. Some of these blocks are of an immense size, weighing thousands of tons. The same phenomenon is found here in America in the New England States and in New York, Pennsylvania, Ohio, Michigan, Wisconsin, Minnesota, Iowa, in eastern and western Canada, and elsewhere. .',
+      '.  In many cases the distance over which they have been transported is very great, and sometimes they are found at an elevation apparently much higher than their source.” Some have theorized that these huge masses of stone were carried to their present locations on top of glaciers during an ice age. However, these boulders are also found in warmer climates far from any signs of glaciation. (Italics- ours)',
+      'What do you think? Did an ancient global flood occur? What other evidence proves that the flood really did happen? Proceed to the next section of the museum "stories of creation" and observe the artwork. We will look at #6- "Stories & Legends Passed On."'
     ],
-    images: ['https://lh3.googleusercontent.com/sitesv/AG8ngQWyM0WL8qmRUTEL718hKpb-eNOX3YthsP-vl7OJgS6W7sqXhalvy5vKJumbg69qhjlKOQfUJqc_kchRO4FNHtWFITbgFzrMm3qbQROMcCS6ZR2WdovtU28670EsNz8abePC9OgHgaFyzK3GGJe6Dwxx4s6HxSGpPh0foklZcT_xVEsuGdbS-MU4uIBWerA8tRUgPzpPJYDqf0izWEsuPm8f6Nr3l-prU4ZxNLqN%3Dw1280']
+    images: ['images/section1/1.5.IceAge.jpg']
   },
   {
-    section: 1, number: '1.6', title: 'Stories & Legends Passed On', file: 'audio/1.6.Stories.mp3', duration: 313.26,
+    section: 1, number: '1.6', title: 'Stories  Legends Passed On', file: 'audio/1.6.Stories.mp3', duration: 313.26,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/6-stories-legends-passed-on',
     commentary: [
-      'This stop focuses on Native creation stories and artworks, especially traditions involving supernatural beings, giants, and floods. The tour asks visitors to compare these themes with the Bible’s account of spirit creatures interacting with humans before the Flood.',
-      'Examples on the page include Wampanoag traditions about the giant Maushop and Cherokee traditions connected with Judaculla Rock. It then turns to flood traditions, including a Hindu account in which a man survives a great flood in a boat and becomes an ancestor of later humanity.',
-      'The commentary highlights the widespread presence of flood stories among many peoples and also discusses traditions surrounding festivals of the dead. Visitors are then directed to the mammoth exhibit for Stop 7.'
+      'Nations across the world have different creation stories; nine Native American artists provided contemporary works of art to visually represent their tribe’s creation story in the exhibit beyond the glacier period exhibits. Complementing the artwork, an adjacent mini–theater shows storytellers relating parts of their own creation stories in their Native languages. Feel free to explore these areas.',
+      'However, we want you to give careful attention to the paintings on the wall depicting supernatural beings becoming involved with the earth. Does that sound familiar?',
+      'What was one reason why there was so much violence on the earth?',
+      'The scriptures teach us the spirit sons of God began to interact with the physical human creation in a way that would be against God\'s purpose. As if they wanted the glory and praise directed to themselves. Does that sound like someone we know in the Bible who requested Jesus to perform an act of worship to him? (Matthew 4:9) Evidently, these spirit creatures were inviting worship in opposition to true worship of Jehovah.',
+      'Did their way of life & worship, perhaps honoring the mighty giants, unite the people? Did it bring peace and harmony among men? Or did it cause ruin and violence on the earth?',
+      'Consider the following traditional stories passed down by tribes around Native America:',
+      'The Wampanoag are the people who helped the Pilgrims of the Plymouth Colony in Massachusetts to survive their new home. “Back when the earth was new, there was a great giant named Maushop. He lived with the Wampanoag, the People of First Light. Maushop loved these human beings and thought of them as his children. He taught them many things and helped them in every way that he could. Before long, though, the people began to rely upon him for everything.”',
+      'According to Cherokee tradition, Judaculla Rock is a sacred soapstone boulder marked by (Judaculla), a powerful 7-foot-tall, slant-eyed giant with seven fingers and toes who ruled the mountain game and weather. Legends say the boulder\'s 1,500+ ancient carvings are handprints and claw-like scratches left when the giant leapt from his mountain. A photo of that rock is below, it is located nearby the Great Smoky Moutains National Park, in the state of North Carolina.',
+      'Do you notice anything in common between these two stories? Giants.',
+      'What about stories of a flood?',
+      'A Hindu legend tells of a man who built a boat to survive a global flood. After the flood, he offered a sacrifice and then became the ancestor of all other humans as depicted below.',
+      'One Bible scholar wrote: “The harmony between all these accounts is an undeniable guarantee that the tradition is no idle invention; a fiction is individual, not universal; that tradition has, therefore, a historical foundation; it is the result of an event which really happened in the ages of the childhood of mankind.',
+      'The International Standard Bible Encyclopedia (Vol. 2, p. 319) states: “Flood stories have been discovered among nearly all nations and tribes. ....The universality of the flood accounts is usually taken as evidence for the universal destruction of humanity by a flood and the spread of the human race from one locale and even from one family. Though the traditions may not all refer to the same flood, apparently the vast majority do."',
+      'Do celebrations today coincide with the timing of that flood?',
+      'The Encyclopedia Americana says: “Elements of the customs connected with Halloween can be traced to a Druid ceremony in pre-Christian times. The Celts had festivals for two major gods—a sun god and a god of the dead (called Samhain), whose festival was held on November 1, the beginning of the Celtic New Year.',
+      'The book The Worship of the Dead points to this origin: “The mythologies of all the ancient nations are interwoven with the events of the Deluge . . . The force of this argument is illustrated by the fact of the observance of a great festival of the dead in commemoration of the event, not only by nations more or less in communication with each other, but by others widely separated, both by the ocean and by centuries of time.',
+      'This festival is, moreover, held by all on or about the very day on which, according to the Mosaic account, the Deluge took place, the seventeenth day of the second month—the month nearly corresponding with our November."',
+      'It is interesting that a celebration, such as Halloween, would be celebrated around the same timing on the calendar year, when God brought the flood to destroy the wicked.',
+      'Please proceed to the Mammoth Exhibit and click on #7 Extinct Animals'
     ],
-    images: [
-      'https://lh3.googleusercontent.com/sitesv/AG8ngQXAY4RTSk6w_LYIOSMcXoQxt5JMGBeMb-F9aT9jqK2wldViiGZmn0vIwcF0hson2NVwuh_hG6uQ6AjgDkfWIWyuaf_M-6ZpADqT3GWKT7-nB_kCHfTcbxr8bEA1fK9PQ9r5_XB1Cnkzkm8FqzlOeH6kGiPZIDVWsUUgIs1prWiNgXLYOHh2131dWbhXZbrNfdSX8PgBSdGzFsWlYjxK9hO7u1iy_dmNdFTm1rHLkl8%3Dw1280',
-      'https://lh3.googleusercontent.com/sitesv/AG8ngQULRYMvifKthL5Sa-YQho-Bxlvc3QM624FB-5Hks9bYvEt58eNE2FXhg50ITXMKPKjcXsIxX6DaVo7ZLXMzeZ2Mikj40RxYpTJypuky6RW_d8fgoMLUvqQahz-VbNNjQ_nbSGlR0pAehSnrpnBW3e6AXZmF3JXmCQEtUmjSrg8Ickp0vF7YGRdIy8yL7pbtMelRHP_0Mo7UXQLxtuLcefaUOYjwMc6OM1gzBQeT%3Dw1280',
-      'https://lh3.googleusercontent.com/sitesv/AG8ngQUY4zNqyubLVsB0AuJisWn7ZTLZdzXbrQe6s4uyJTiZAJ0pfmb4N4N20AoX83NIh65dUbEfkzbNtCLKMN_KYxrbmoM8jREumaB0wWmmJ6H4R-gTh1GUoOgQef7A7cQKEIBgxfEp9rGxfO5nVt_F9p6J2MuqeEtWSGB119UBxg2ATJRYgSKxvsl_N131BwXJ5pNMuiYWaCKDHHGMJPPCSGADzOE7rbNIJXUKcPsh%3Dw1280'
-    ]
+    images: ['images/section1/1.6.Stories.jpg', 'images/section1/1.6.StoriesB.png', 'images/section1/1.6.Stories_Judaculla_Rock.jpg', 'images/section1/1.6.Stories_Hindu.png']
   },
   {
     section: 1, number: '1.7', title: 'Extinct Animals', file: 'audio/1.7.Extinct-Animals.mp3', duration: 171.05,
     sourceUrl: 'https://sites.google.com/view/learn-from-the-flood/section-1-the-flood/7-extinct-animals',
     commentary: [
-      'At the mammoth exhibit, this stop asks what fossils of woolly mammoths might teach about the Flood. The page notes their broad distribution across Asia, Europe, and North America and discusses discoveries of mammoth remains in Siberia.',
-      'A featured reconstruction shows a frozen mammoth discovered in Siberia in 1901. The tour presents preserved vegetation and other fossil evidence as points to consider when evaluating the possibility of sudden catastrophic conditions.',
-      'The stop closes by looking ahead to life after the Flood—changed seasons, hunting and gathering, and family traditions carried into later generations. Continue to Section 2, beginning with “Every Animal as Food.”'
+      'The next exhibit you will visit is a recreated Mammoth an extraordinary creature that once roamed the planet. What do fossils of this creature teach us about a global flood?',
+      'An article entitled: "When Giants Roamed Europe" comments about the mammoth:',
+      'The fossil record indicates that the woolly mammoth roamed over a vast area, which included Asia, Europe, and North America. In Europe, Italy appears to have been at the southernmost extremity of the animal’s range.',
+      'About the same size as present-day Asian elephants, the woolly mammoth had hair that grew up to 20 inches [50 cm] in length, and the males had long curved tusks that grew to about 15 feet [5 m]. A particularly large amount of mammoth ivory has been found in Siberia—so much, in fact, that from medieval times it was exported to China and Europe.',
+      'What else did scientists discover? Note the picture below:',
+      'The picture is a reconstruction of a frozen mammoth uncovered in Siberia in 1901. After thousands of years, vegetation was still in its mouth. Some see in this, as well as in such other things as marine fossils found on high mountains, convincing evidence of a sudden, catastrophic global flood.',
+      'Is it possible that Jehovah had used these giant creatures to help with the construction of Noah\'s Ark? Could they pull heavy weight? Consider the elephant\'s trunk (Click the Video below)',
+      'So far we observed evidence that points to a global flood as described in the Bible. We can put confidence in the Bible\'s record.  It has been preserved for our benefit and as a warning example for generations. Noah had a lot of work to do to prepare for this incredible task of building the ark. He even had to preach to family and other neighbors around him. We know he trusted in Jehovah and had been given the "power beyond what was normal" to complete that task.',
+      'As you proceed to the next section, it depicts early times of hunting and gathering. Try to imagine what life might have been like after the flood. The earth\'s weather and landscape changed, new seasons appeared like never before. Noah\'s families and their children could tell about what had happened. Their families would carry the story of giants and a great flood down through generations to every corner of the earth that they inhabited.',
+      'What new food did God permit Noah and his family to enjoy? Please walk to the middle of the hunting area and take your time observing how the native people worked together to gather their food. You may now click on section 2 Post Flood number 1 Every Animal as Food.'
     ],
-    images: ['https://lh3.googleusercontent.com/sitesv/AG8ngQV1K-Abb0swVRNlND7cqnEUgQzgfLTlgX89nwvuYtntBW24Dw710pwA9IHyWAQ-zXOY2tpuUaZzvhXTMVtTB36jLQ2x2rLwfyItIIN1gPuD7vZmt0i8i5vOuov5gs9VLBjADEhUIe4fdk2JioyF5tptfHeQaAeC01bGRcuihl7-CbM4Gty4VrI1aiVkcR7Vl3qqJGhAJOr9zipCsBXx9Xuw_2NEuT0OmRhTwvSoGZY%3Dw1280']
+    images: ['images/section1/1.7.ExtinctAnimals.png']
   },
   { section: 2, number: '2.1', title: 'Every Animal as Food', file: 'audio/2.1.Every-Animal-as-Food.mp3', duration: 91.38, commentary: [], images: [] },
   { section: 2, number: '2.2', title: 'Tools', file: 'audio/2.2.Tools.mp3', duration: 146.10, commentary: [], images: [] },
@@ -79,7 +125,7 @@ const tracks = [
 ];
 
 const AUDIO_CACHE = 'learn-flood-audio-v3';
-const IMAGE_CACHE = 'learn-flood-images-v4';
+const IMAGE_CACHE = 'learn-flood-images-v4-1';
 const audio = document.getElementById('audioPlayer');
 const titleEl = document.getElementById('nowPlayingTitle');
 const sectionEl = document.getElementById('nowPlayingSection');
@@ -203,7 +249,7 @@ async function checkOfflineStatus() {
   const audioCache = await caches.open(AUDIO_CACHE);
   let foundAudio = 0;
   for (const track of tracks) if (await audioCache.match(new URL(track.file, document.baseURI).href)) foundAudio++;
-  const allImages = tracks.flatMap(t => t.images || []);
+  const allImages = tracks.flatMap(t => t.images || []).map(url => new URL(url, document.baseURI).href);
   const imageCache = await caches.open(IMAGE_CACHE);
   let foundImages = 0;
   for (const url of allImages) if (await imageCache.match(url)) foundImages++;
@@ -220,7 +266,7 @@ downloadBtn.addEventListener('click', async () => {
   downloadBtn.disabled = true;
   progressWrap.classList.remove('hidden');
   progressWrap.setAttribute('aria-hidden', 'false');
-  const allImages = tracks.flatMap(t => t.images || []);
+  const allImages = tracks.flatMap(t => t.images || []).map(url => new URL(url, document.baseURI).href);
   const total = tracks.length + allImages.length;
   progressBar.max = total;
   progressBar.value = 0;
@@ -239,7 +285,8 @@ downloadBtn.addEventListener('click', async () => {
     const imageCache = await caches.open(IMAGE_CACHE);
     for (const url of allImages) {
       if (!(await imageCache.match(url))) {
-        const response = await fetch(url, { mode: 'no-cors', cache: 'no-store' });
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Could not download image ${url}`);
         await imageCache.put(url, response.clone());
       }
       done++; progressBar.value = done; progressText.textContent = `${done} of ${total} items saved`;
