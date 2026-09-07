@@ -31,6 +31,7 @@ const progressText = document.getElementById('downloadProgressText');
 
 let currentIndex = 0;
 let seeking = false;
+let activeBlobUrl = null;
 
 function fmt(seconds) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -59,21 +60,47 @@ function renderTracks() {
   }
 
   document.querySelectorAll('.track-play').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const idx = Number(btn.dataset.index);
       if (idx === currentIndex && !audio.paused) audio.pause();
       else {
-        if (idx !== currentIndex) loadTrack(idx);
+        if (idx !== currentIndex) await loadTrack(idx);
         audio.play().catch(() => {});
       }
     });
   });
 }
 
-function loadTrack(index) {
+async function loadTrack(index) {
   currentIndex = Math.max(0, Math.min(index, tracks.length - 1));
   const track = tracks[currentIndex];
-  audio.src = new URL(track.file, document.baseURI).href;
+
+  // Release the prior local Blob URL to avoid leaking memory.
+  if (activeBlobUrl) {
+    URL.revokeObjectURL(activeBlobUrl);
+    activeBlobUrl = null;
+  }
+
+  const networkUrl = new URL(track.file, document.baseURI).href;
+  let playbackUrl = networkUrl;
+
+  // Prefer a downloaded copy when available. Playing a Blob URL avoids
+  // browser-specific offline MP3 byte-range issues on Android/Chrome.
+  try {
+    if ('caches' in window) {
+      const cache = await caches.open('learn-flood-audio-v3');
+      const cached = await cache.match(networkUrl);
+      if (cached) {
+        const blob = await cached.blob();
+        activeBlobUrl = URL.createObjectURL(blob);
+        playbackUrl = activeBlobUrl;
+      }
+    }
+  } catch (err) {
+    console.warn('Could not open cached audio; using network copy.', err);
+  }
+
+  audio.src = playbackUrl;
   audio.load();
   titleEl.textContent = track.title;
   sectionEl.textContent = `Section ${track.section} · Track ${currentIndex + 1} of ${tracks.length}`;
@@ -105,14 +132,14 @@ function updatePlayButton() {
 playPauseBtn.addEventListener('click', () => {
   if (audio.paused) audio.play().catch(() => {}); else audio.pause();
 });
-prevBtn.addEventListener('click', () => {
+prevBtn.addEventListener('click', async () => {
   const wasPlaying = !audio.paused;
-  loadTrack(currentIndex - 1);
+  await loadTrack(currentIndex - 1);
   if (wasPlaying) audio.play().catch(() => {});
 });
-nextBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', async () => {
   const wasPlaying = !audio.paused;
-  loadTrack(currentIndex + 1);
+  await loadTrack(currentIndex + 1);
   if (wasPlaying) audio.play().catch(() => {});
 });
 
@@ -125,9 +152,9 @@ audio.addEventListener('error', () => {
 
 audio.addEventListener('play', updatePlayButton);
 audio.addEventListener('pause', updatePlayButton);
-audio.addEventListener('ended', () => {
+audio.addEventListener('ended', async () => {
   if (currentIndex < tracks.length - 1) {
-    loadTrack(currentIndex + 1);
+    await loadTrack(currentIndex + 1);
     audio.play().catch(() => {});
   }
 });
@@ -165,7 +192,7 @@ async function registerServiceWorker() {
 
 async function checkOfflineStatus() {
   if (!('caches' in window)) return;
-  const cache = await caches.open('learn-flood-audio-v2');
+  const cache = await caches.open('learn-flood-audio-v3');
   let found = 0;
   for (const track of tracks) {
     if (await cache.match(new URL(track.file, document.baseURI).href)) found++;
@@ -187,7 +214,7 @@ downloadBtn.addEventListener('click', async () => {
   progressText.textContent = 'Starting download…';
 
   try {
-    const cache = await caches.open('learn-flood-audio-v2');
+    const cache = await caches.open('learn-flood-audio-v3');
     let done = 0;
     for (const track of tracks) {
       const url = new URL(track.file, document.baseURI).href;
