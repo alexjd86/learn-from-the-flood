@@ -170,7 +170,7 @@ function renderTracks() {
       const idx = Number(btn.dataset.index);
       if (idx === currentIndex && !audio.paused) audio.pause();
       else {
-        if (idx !== currentIndex) await loadTrack(idx);
+        if (idx !== currentIndex) await loadTrack(idx, { scrollToContent: true });
         audio.play().catch(() => {});
       }
     });
@@ -186,7 +186,7 @@ function renderContent(track) {
   contentPanel.innerHTML = `<div class="content-heading"><p class="eyebrow">Stop ${track.number}</p><h2>${track.title}</h2></div>${gallery}<div class="commentary">${body}</div>${source}`;
 }
 
-async function loadTrack(index) {
+async function loadTrack(index, { scrollToContent = false } = {}) {
   currentIndex = Math.max(0, Math.min(index, tracks.length - 1));
   const track = tracks[currentIndex];
   if (activeBlobUrl) { URL.revokeObjectURL(activeBlobUrl); activeBlobUrl = null; }
@@ -213,6 +213,11 @@ async function loadTrack(index) {
   playPauseBtn.setAttribute('aria-label', `Play ${track.title}`);
   renderContent(track);
   updateActiveCard();
+  if (scrollToContent) {
+    requestAnimationFrame(() => {
+      contentPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 }
 
 function updateActiveCard() {
@@ -228,12 +233,12 @@ function updatePlayButton() {
   updateActiveCard();
 }
 playPauseBtn.addEventListener('click', () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); });
-prevBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex - 1); if (wasPlaying) audio.play().catch(() => {}); });
-nextBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex + 1); if (wasPlaying) audio.play().catch(() => {}); });
+prevBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex - 1, { scrollToContent: true }); if (wasPlaying) audio.play().catch(() => {}); });
+nextBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex + 1, { scrollToContent: true }); if (wasPlaying) audio.play().catch(() => {}); });
 audio.addEventListener('error', () => { const err = audio.error; offlineStatus.textContent = `Audio could not load (error ${err ? err.code : 'unknown'}).`; });
 audio.addEventListener('play', updatePlayButton);
 audio.addEventListener('pause', updatePlayButton);
-audio.addEventListener('ended', async () => { if (currentIndex < tracks.length - 1) { await loadTrack(currentIndex + 1); audio.play().catch(() => {}); } });
+audio.addEventListener('ended', async () => { if (currentIndex < tracks.length - 1) { await loadTrack(currentIndex + 1, { scrollToContent: true }); audio.play().catch(() => {}); } });
 audio.addEventListener('timeupdate', () => { if (!seeking && audio.duration) seekBar.value = Math.round((audio.currentTime / audio.duration) * 1000); elapsedEl.textContent = fmt(audio.currentTime); durationEl.textContent = fmt(audio.duration || tracks[currentIndex].duration); });
 seekBar.addEventListener('input', () => { seeking = true; const dur = audio.duration || tracks[currentIndex].duration; elapsedEl.textContent = fmt((seekBar.value / 1000) * dur); });
 seekBar.addEventListener('change', () => { const dur = audio.duration || tracks[currentIndex].duration; audio.currentTime = (seekBar.value / 1000) * dur; seeking = false; });
