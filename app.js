@@ -129,12 +129,8 @@ const IMAGE_CACHE = 'learn-flood-images-v4-1';
 const audio = document.getElementById('audioPlayer');
 const titleEl = document.getElementById('nowPlayingTitle');
 const sectionEl = document.getElementById('nowPlayingSection');
-const playPauseBtn = document.getElementById('playPauseBtn');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const seekBar = document.getElementById('seekBar');
-const elapsedEl = document.getElementById('elapsedTime');
-const durationEl = document.getElementById('durationTime');
 const downloadBtn = document.getElementById('downloadAllBtn');
 const offlineStatus = document.getElementById('offlineStatus');
 const progressWrap = document.getElementById('downloadProgressWrap');
@@ -143,7 +139,6 @@ const progressText = document.getElementById('downloadProgressText');
 const contentPanel = document.getElementById('stopContent');
 
 let currentIndex = 0;
-let seeking = false;
 let activeBlobUrl = null;
 
 function fmt(seconds) {
@@ -207,10 +202,6 @@ async function loadTrack(index, { scrollToContent = false } = {}) {
   audio.load();
   titleEl.textContent = track.title;
   sectionEl.textContent = `Section ${track.section} · Track ${currentIndex + 1} of ${tracks.length}`;
-  durationEl.textContent = fmt(track.duration);
-  elapsedEl.textContent = '0:00';
-  seekBar.value = 0;
-  playPauseBtn.setAttribute('aria-label', `Play ${track.title}`);
   renderContent(track);
   updateActiveCard();
   if (scrollToContent) {
@@ -227,21 +218,13 @@ function updateActiveCard() {
     btn.textContent = active && !audio.paused ? '❚❚' : '▶';
   });
 }
-function updatePlayButton() {
-  const playing = !audio.paused;
-  playPauseBtn.innerHTML = playing ? '❚❚ <span>Pause</span>' : '▶ <span>Play</span>';
-  updateActiveCard();
-}
-playPauseBtn.addEventListener('click', () => { if (audio.paused) audio.play().catch(() => {}); else audio.pause(); });
+function updatePlayButton() { updateActiveCard(); }
 prevBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex - 1, { scrollToContent: true }); if (wasPlaying) audio.play().catch(() => {}); });
 nextBtn.addEventListener('click', async () => { const wasPlaying = !audio.paused; await loadTrack(currentIndex + 1, { scrollToContent: true }); if (wasPlaying) audio.play().catch(() => {}); });
 audio.addEventListener('error', () => { const err = audio.error; offlineStatus.textContent = `Audio could not load (error ${err ? err.code : 'unknown'}).`; });
 audio.addEventListener('play', updatePlayButton);
 audio.addEventListener('pause', updatePlayButton);
 audio.addEventListener('ended', async () => { if (currentIndex < tracks.length - 1) { await loadTrack(currentIndex + 1, { scrollToContent: true }); audio.play().catch(() => {}); } });
-audio.addEventListener('timeupdate', () => { if (!seeking && audio.duration) seekBar.value = Math.round((audio.currentTime / audio.duration) * 1000); elapsedEl.textContent = fmt(audio.currentTime); durationEl.textContent = fmt(audio.duration || tracks[currentIndex].duration); });
-seekBar.addEventListener('input', () => { seeking = true; const dur = audio.duration || tracks[currentIndex].duration; elapsedEl.textContent = fmt((seekBar.value / 1000) * dur); });
-seekBar.addEventListener('change', () => { const dur = audio.duration || tracks[currentIndex].duration; audio.currentTime = (seekBar.value / 1000) * dur; seeking = false; });
 
 async function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) { offlineStatus.textContent = 'Offline mode is not supported in this browser'; downloadBtn.disabled = true; return; }
