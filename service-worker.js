@@ -1,5 +1,5 @@
-const APP_CACHE = 'learn-flood-app-v2';
-const AUDIO_CACHE = 'learn-flood-audio-v2';
+const APP_CACHE = 'learn-flood-app-v3';
+const AUDIO_CACHE = 'learn-flood-audio-v3';
 const APP_FILES = [
   './', './index.html', './style.css', './app.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png'
@@ -49,10 +49,12 @@ self.addEventListener('fetch', event => {
   if (url.pathname.toLowerCase().endsWith('.mp3')) {
     event.respondWith((async () => {
       const cache = await caches.open(AUDIO_CACHE);
-      const fullRequest = new Request(url.href, { method: 'GET' });
-      let cached = await cache.match(fullRequest);
-      if (cached) return rangeResponse(event.request, cached);
-      // Online: let the server handle Range requests normally.
+      const fullUrl = url.href;
+      const cached = await cache.match(fullUrl);
+      if (cached && !event.request.headers.has('range')) return cached;
+
+      // Blob URLs are used for downloaded offline playback, so online
+      // Range requests can go straight to GitHub Pages.
       try { return await fetch(event.request); }
       catch { return new Response('', { status: 503, statusText: 'Audio not available offline' }); }
     })());
