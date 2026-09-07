@@ -1,19 +1,29 @@
-Learn From the Flood — GitHub-ready PWA
-This folder contains a complete static Progressive Web App with 13 MP3 tracks, Section 1 and Section 2, large playback controls, progress seeking, Previous/Next navigation, and a one-tap offline download.
-Publish on GitHub Pages
-Open your `learn-from-the-flood` GitHub repository.
-Upload the contents of this folder to the top level of the repository. `index.html` should be visible at the repository root, not inside an extra nested folder.
-Commit the files.
-Open Settings → Pages.
-Under Build and deployment, choose Deploy from a branch.
-Select the branch `main` and folder `/ (root)`, then save.
-Once GitHub Pages finishes publishing, open the site on your phone while online.
-Tap Download all for offline and keep the page open until it says Full tour is ready offline.
-Test by enabling airplane mode and reopening the tour in the same browser.
-Important offline note
-Offline files are stored by the phone's browser. Clearing browser/site data can remove them, so the tour would need to be downloaded again.
-Audio
-The original uploaded MP3 files are preserved. The display title for `2.6.Abundant Knowldge.mp3` is corrected to “Abundant Knowledge” in the interface while the filename stays unchanged.
+# Learn From the Flood PWA — v4
 
-v3 offline fix
-Downloaded tracks are played from local Blob URLs created from Cache Storage. This avoids Android/Chrome MP3 byte-range playback errors that can appear as Media Error 4 when offline.
+This version keeps the working v3 offline audio system and adds Section 1 commentary and images from the published Google Site.
+
+## What changed
+- Section 1 stops 1–7 now show phone-friendly written commentary.
+- Published Google Sites images are shown on stops that contain images.
+- "Download all for offline" now saves all 13 MP3s plus the Section 1 images.
+- The reliable v3 Blob-based offline audio playback remains in place.
+- Section 2 remains audio-only until its Google Sites pages are mapped.
+
+## Updating GitHub
+Replace these files in the repository root:
+- `app.js`
+- `index.html`
+- `style.css`
+- `service-worker.js`
+- `README.md`
+
+You do not need to re-upload the `audio/` folder or `icons/` folder if they are already present and working.
+
+Commit directly to `main`, wait for GitHub Pages to redeploy, then refresh the live site twice while online.
+
+## Offline test
+1. Open the live GitHub Pages site while online.
+2. Tap **Download all for offline** and wait for completion.
+3. Turn on airplane mode and turn Wi-Fi off.
+4. Reopen the tour.
+5. Test audio and Section 1 images on several stops.
