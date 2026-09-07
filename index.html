@@ -1,4 +1,89 @@
-<!doctype html>
+<!doctype html><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#173b35" />
+  <meta name="description" content="Learn From the Flood — offline-capable mobile audio tour." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Learn From the Flood — Audio Tour</title>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Mobile Audio Tour</p>
+      <h1>Learn From the Flood</h1>
+      <p class="subtitle">Listen, read the commentary, view the tour images, or save the full tour to this phone for offline use.</p>
+      <div class="offline-card" aria-live="polite">
+        <div>
+          <strong>Offline listening</strong>
+          <span id="offlineStatus">Not downloaded yet</span>
+        </div>
+        <button id="downloadAllBtn" class="secondary-btn" type="button">Download all for offline</button>
+      </div>
+      <div id="downloadProgressWrap" class="download-progress hidden" aria-hidden="true">
+        <progress id="downloadProgress" max="13" value="0"></progress>
+        <span id="downloadProgressText">Preparing…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="now-playing" aria-labelledby="nowPlayingTitle">
+      <p class="eyebrow">Now Playing</p>
+      <h2 id="nowPlayingTitle">Welcome</h2>
+      <p id="nowPlayingSection" class="section-label">Section 1 · Track 1 of 13</p>
+
+      <audio id="audioPlayer" preload="metadata"></audio>
+
+      <div class="time-row">
+        <span id="elapsedTime">0:00</span>
+        <span id="durationTime">0:00</span>
+      </div>
+      <input id="seekBar" class="seek" type="range" min="0" max="1000" value="0" aria-label="Audio progress" />
+
+      <div class="transport" aria-label="Playback controls">
+        <button id="prevBtn" class="transport-btn" type="button" aria-label="Previous track">◀<span>Previous</span></button>
+        <button id="playPauseBtn" class="play-btn" type="button" aria-label="Play Welcome">▶ <span>Play</span></button>
+        <button id="nextBtn" class="transport-btn" type="button" aria-label="Next track"><span>Next</span>▶</button>
+      </div>
+    </section>
+
+    <section id="stopContent" class="stop-content" aria-live="polite"></section>
+
+    <section class="track-section" aria-labelledby="section1Heading">
+      <div class="section-heading">
+        <p class="eyebrow">Section 1</p>
+        <h2 id="section1Heading">Section 1</h2>
+      </div>
+      <div id="section1Tracks" class="track-list"></div>
+    </section>
+
+    <section class="track-section" aria-labelledby="section2Heading">
+      <div class="section-heading">
+        <p class="eyebrow">Section 2</p>
+        <h2 id="section2Heading">Section 2</h2>
+      </div>
+      <div id="section2Tracks" class="track-list"></div>
+    </section>
+
+    <section class="help-card">
+      <h2>Using the tour offline</h2>
+      <p>While you have internet access, tap <strong>Download all for offline</strong> once. Keep this page open until it says the tour is ready offline. After that, you can reopen this page without Wi-Fi or cellular data on the same device and browser.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Learn From the Flood</p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
