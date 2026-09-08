@@ -1,6 +1,6 @@
-const APP_CACHE = 'learn-flood-app-v5-2';
+const APP_CACHE = 'learn-flood-app-v5-3';
 const AUDIO_CACHE = 'learn-flood-audio-v3';
-const IMAGE_CACHE = 'learn-flood-images-v5-1';
+const IMAGE_CACHE = 'learn-flood-images-v5-3';
 
 const APP_FILES = [
   './',
@@ -38,8 +38,19 @@ self.addEventListener('install', event => {
     const appCache = await caches.open(APP_CACHE);
     await appCache.addAll(APP_FILES);
 
+    // Cache each image independently. One bad image must not prevent
+    // all of the other tour images from being available offline.
     const imageCache = await caches.open(IMAGE_CACHE);
-    await imageCache.addAll(IMAGE_FILES);
+    for (const file of IMAGE_FILES) {
+      try {
+        const request = new Request(file, { cache: 'reload' });
+        const response = await fetch(request);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        await imageCache.put(request, response.clone());
+      } catch (err) {
+        console.warn('Could not pre-cache image:', file, err);
+      }
+    }
   })());
 
   self.skipWaiting();
@@ -64,18 +75,15 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
-
   if (url.origin !== self.location.origin) return;
 
-  // IMPORTANT: Preserve the proven V4.3/V5.0 audio behavior unchanged.
+  // DO NOT CHANGE: preserve the proven offline audio behavior.
   if (url.pathname.toLowerCase().endsWith('.mp3')) {
     event.respondWith((async () => {
       const cache = await caches.open(AUDIO_CACHE);
       const cached = await cache.match(url.href);
 
-      if (cached && !event.request.headers.has('range')) {
-        return cached;
-      }
+      if (cached && !event.request.headers.has('range')) return cached;
 
       try {
         return await fetch(event.request);
@@ -86,53 +94,41 @@ self.addEventListener('fetch', event => {
         });
       }
     })());
-
     return;
   }
 
-  // Keep images in their own offline image cache.
   if (url.pathname.includes('/images/')) {
     event.respondWith((async () => {
       const imageCache = await caches.open(IMAGE_CACHE);
-      const cached = await imageCache.match(event.request);
-
+      const cached = await imageCache.match(event.request, { ignoreSearch: true });
       if (cached) return cached;
 
       try {
         const response = await fetch(event.request);
-
         if (response && response.ok) {
           await imageCache.put(event.request, response.clone());
         }
-
         return response;
       } catch {
         return new Response('Image not available offline', { status: 503 });
       }
     })());
-
     return;
   }
 
   event.respondWith((async () => {
     const cached = await caches.match(event.request);
-
     if (cached) return cached;
 
     try {
       const response = await fetch(event.request);
-
       if (response && response.ok) {
         const cache = await caches.open(APP_CACHE);
         await cache.put(event.request, response.clone());
       }
-
       return response;
     } catch {
-      if (event.request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
-
+      if (event.request.mode === 'navigate') return caches.match('./index.html');
       return new Response('Offline', { status: 503 });
     }
   })());
