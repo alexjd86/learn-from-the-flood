@@ -214,7 +214,7 @@ const tracks = [
 ];
 
 const AUDIO_CACHE = 'learn-flood-audio-v3';
-const IMAGE_CACHE = 'learn-flood-images-v5-1';
+const IMAGE_CACHE = 'learn-flood-images-v5-3';
 const audio = document.getElementById('audioPlayer');
 const titleEl = document.getElementById('nowPlayingTitle');
 const sectionEl = document.getElementById('nowPlayingSection');
@@ -393,17 +393,29 @@ downloadBtn.addEventListener('click', async () => {
       done++; progressBar.value = done; progressText.textContent = `${done} of ${total} items saved`;
     }
     const imageCache = await caches.open(IMAGE_CACHE);
+    let failedImages = 0;
     for (const url of allImages) {
-      if (!(await imageCache.match(url))) {
-        const response = await fetch(url, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Could not download image ${url}`);
-        await imageCache.put(url, response.clone());
+      try {
+        if (!(await imageCache.match(url))) {
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          await imageCache.put(url, response.clone());
+        }
+      } catch (imageErr) {
+        failedImages++;
+        console.error('Could not download image:', url, imageErr);
       }
-      done++; progressBar.value = done; progressText.textContent = `${done} of ${total} items saved`;
+      done++; progressBar.value = done; progressText.textContent = `${done} of ${total} items checked`;
     }
-    offlineStatus.textContent = 'Full tour audio + images are ready offline';
-    downloadBtn.textContent = 'Downloaded ✓';
-    progressText.textContent = 'Offline download complete';
+    if (failedImages === 0) {
+      offlineStatus.textContent = 'Full tour audio + images are ready offline';
+      downloadBtn.textContent = 'Downloaded ✓';
+      progressText.textContent = 'Offline download complete';
+    } else {
+      offlineStatus.textContent = `${failedImages} image${failedImages === 1 ? '' : 's'} could not be saved — tap again when online`;
+      downloadBtn.textContent = 'Retry image download';
+      progressText.textContent = `${allImages.length - failedImages}/${allImages.length} images saved`;
+    }
   } catch (err) {
     console.error(err);
     offlineStatus.textContent = 'Download interrupted — tap again when online';
